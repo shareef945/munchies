@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { set } from "date-fns";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -17,20 +17,20 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
   const [password, setPassword] = useState("");
   const [view, setView] = useState("sign-in");
   const router = useRouter();
-  // const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient();
 
-  // const handleSignIn = async () => {
-  //   const { data, error } = await supabase.auth.signInWithPassword({
-  //     email,
-  //     password,
-  //   });
-  //   if (error) {
-  //     alert(error.message);
-  //     return;
-  //   } else {
-  //     router.push("/dashboard");
-  //   }
-  // };
+  const handleSignIn = async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      alert(error.message);
+      return;
+    } else {
+      router.push("/dashboard");
+    }
+  };
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -61,7 +61,7 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
             disabled={isLoading}
           />
         </div>
-        <Button disabled={isLoading} onClick={()=>null}>
+        <Button disabled={isLoading} onClick={handleSignIn}>
           {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
           Sign In
         </Button>
