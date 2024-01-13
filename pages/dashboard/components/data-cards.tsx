@@ -1,7 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { totalQuantity, totalSales } from "@/functions/dashboard";
 import React from "react";
 
-const DataCards = () => {
+interface DataCardsProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: any;
+}
+const DataCards = ({ data }: DataCardsProps) => {
+  const total = totalSales(data);
+  const quantity = totalQuantity(data);
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
@@ -21,13 +27,13 @@ const DataCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">$45,231.89</div>
-          <p className="text-xs text-muted-foreground">
+          <div className="text-2xl font-bold">{`₵ ${total}`}</div>
+          {/* <p className="text-xs text-muted-foreground">
             +20.1% from last month
-          </p>
+          </p> */}
         </CardContent>
       </Card>
-      <Card>
+      {/* <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
           <svg
@@ -51,10 +57,10 @@ const DataCards = () => {
             +180.1% from last month
           </p>
         </CardContent>
-      </Card>
+      </Card> */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Sales</CardTitle>
+          <CardTitle className="text-sm font-medium">Total Quantity</CardTitle>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -70,11 +76,11 @@ const DataCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">+12,234</div>
-          <p className="text-xs text-muted-foreground">+19% from last month</p>
+          <div className="text-2xl font-bold">{quantity}</div>
+          {/* <p className="text-xs text-muted-foreground">+19% from last month</p> */}
         </CardContent>
       </Card>
-      <Card>
+      {/* <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Active Now</CardTitle>
           <svg
@@ -94,7 +100,7 @@ const DataCards = () => {
           <div className="text-2xl font-bold">+573</div>
           <p className="text-xs text-muted-foreground">+201 since last hour</p>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   );
 };

@@ -10,6 +10,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { startOfDay } from 'date-fns';
+
 
 interface CalendarDateRangePickerProps extends React.HTMLAttributes<HTMLDivElement> {
   onDateChange: (date: DateRange | undefined) => void;
@@ -19,8 +21,13 @@ interface CalendarDateRangePickerProps extends React.HTMLAttributes<HTMLDivEleme
 export function CalendarDateRangePicker({
   className,
   onDateChange,
-  initialDate,
+
 }: CalendarDateRangePickerProps) {
+  const today = startOfDay(new Date());
+  const initialDate = {
+    from: addDays(today, -7),
+    to: today,
+  };
   const [date, setDate] = React.useState<DateRange | undefined>(initialDate)
 
   React.useEffect(() => {

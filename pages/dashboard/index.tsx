@@ -1,23 +1,15 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CalendarDateRangePicker } from "./components/date-range-picker";
 import { MainNav } from "@/components/shared/main-nav";
 import { Chart } from "./components/chart";
 import { RecentSales } from "./components/recent-sales";
-import { Search } from "@/components/shared/search";
-import TeamSwitcher from "@/components/shared/team-switcher";
 import { UserNav } from "@/components/shared/user-nav";
 import DataCards from "./components/data-cards";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import supabase from "@/utils/supabase";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -26,9 +18,23 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   const [date, setDate] = useState<any>("");
+  const [data, setData] = useState<any>("");
+
   const handleDownload = () => {
     console.log("download");
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data: transactions, error } = await supabase
+        .from("hubtel-transactions")
+        .select("*");
+      setData(transactions);
+      console.log(transactions);
+    };
+    getData();
+  }, []);
+
   return (
     <>
       <div className="hidden flex-col md:flex">
@@ -51,9 +57,7 @@ export default function DashboardPage() {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
-                Analytics
-              </TabsTrigger>
+              <TabsTrigger value="transactions">Transactions</TabsTrigger>
               <TabsTrigger value="reports" disabled>
                 Reports
               </TabsTrigger>
@@ -62,14 +66,14 @@ export default function DashboardPage() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
-              <DataCards />
+              <DataCards data={data ? data : []} />
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <Chart />
+                    <Chart data={data} />
                   </CardContent>
                 </Card>
                 <Card className="col-span-3">
@@ -77,10 +81,13 @@ export default function DashboardPage() {
                     <CardTitle>Recent Sales</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <RecentSales />
+                    <RecentSales data={data ? data : []} />
                   </CardContent>
                 </Card>
               </div>
+            </TabsContent>
+            <TabsContent value="transactions" className="space-y-4">
+              <>Hello</>
             </TabsContent>
           </Tabs>
         </div>
