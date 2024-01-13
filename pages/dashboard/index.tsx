@@ -10,6 +10,8 @@ import { UserNav } from "@/components/shared/user-nav";
 import DataCards from "./components/data-cards";
 import { useEffect, useState } from "react";
 import supabase from "@/utils/supabase";
+import { Transactions } from "./components/transactions";
+import { formatDateQuery, handleDownload } from "@/utils/utils";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -20,20 +22,18 @@ export default function DashboardPage() {
   const [date, setDate] = useState<any>("");
   const [data, setData] = useState<any>("");
 
-  const handleDownload = () => {
-    console.log("download");
-  };
 
   useEffect(() => {
     const getData = async () => {
       const { data: transactions, error } = await supabase
         .from("hubtel-transactions")
-        .select("*");
+        .select("*")
+        .gt('" Updated Date"', formatDateQuery(date? date.from : null))
+        .lt('" Updated Date"', formatDateQuery(date? date.to : null))
       setData(transactions);
-      console.log(transactions);
     };
     getData();
-  }, []);
+  }, [date]);
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
               <CalendarDateRangePicker onDateChange={(e) => setDate(e)} />
-              <Button onClick={handleDownload}>Download</Button>
+              <Button onClick={() => handleDownload(data)}>Download</Button>
             </div>
           </div>
           <Tabs defaultValue="overview" className="space-y-4">
@@ -87,7 +87,7 @@ export default function DashboardPage() {
               </div>
             </TabsContent>
             <TabsContent value="transactions" className="space-y-4">
-              <>Hello</>
+              <Transactions data={data ? data : []} />
             </TabsContent>
           </Tabs>
         </div>

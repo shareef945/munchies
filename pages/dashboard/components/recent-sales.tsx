@@ -15,16 +15,13 @@ export function RecentSales({ data }: RecentSalesProps) {
 
   return (
     <div className="space-y-8">
-      {recentSales.map((sale: any) => (
+      {recentSales.map((sale: any, index: number) => (
         <Sale
-          key={sale.id}
-          // avatarSrc={sale.avatarSrc}
-          // avatarAlt={sale.avatarAlt}
-          // avatarFallback={sale.avatarFallback}
+          key={index}
           name={sale[" Name"]}
           email={sale["Updated By"]}
           amount={`₵ ${sale[" Selling Price"]}`}
-          date = {sale[" Updated Date"]}
+          date={sale[" Updated Date"]}
         />
       ))}
     </div>
