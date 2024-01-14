@@ -3,10 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CalendarDateRangePicker } from "./components/date-range-picker";
-import { MainNav } from "@/components/shared/main-nav";
 import { Chart } from "./components/chart";
 import { RecentSales } from "./components/recent-sales";
-import { UserNav } from "@/components/shared/user-nav";
 import DataCards from "./components/data-cards";
 import { useEffect, useState } from "react";
 import supabase from "@/utils/supabase";
@@ -22,14 +20,13 @@ export default function DashboardPage() {
   const [date, setDate] = useState<any>("");
   const [data, setData] = useState<any>("");
 
-
   useEffect(() => {
     const getData = async () => {
       const { data: transactions, error } = await supabase
         .from("hubtel-transactions")
         .select("*")
-        .gt('" Updated Date"', formatDateQuery(date? date.from : null))
-        .lt('" Updated Date"', formatDateQuery(date? date.to : null))
+        .gt('" Updated Date"', formatDateQuery(date ? date.from : null))
+        .lt('" Updated Date"', formatDateQuery(date ? date.to : null));
       setData(transactions);
     };
     getData();
@@ -38,14 +35,6 @@ export default function DashboardPage() {
   return (
     <>
       <div className="hidden flex-col md:flex">
-        <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            <MainNav className="mx-6" />
-            <div className="ml-auto flex items-center space-x-4">
-              <UserNav />
-            </div>
-          </div>
-        </div>
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
