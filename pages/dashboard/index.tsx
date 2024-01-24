@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CalendarDateRangePicker } from "./components/date-range-picker";
-import { Chart } from "./components/chart";
-import { RecentSales } from "./components/recent-sales";
+import CalendarDateRangePicker  from "./components/date-range-picker";
+import Chart  from "./components/chart";
+import  RecentSales  from "./components/recent-sales";
 import DataCards from "./components/data-cards";
 import { useEffect, useState } from "react";
 import supabase from "@/utils/supabase";
-import { Transactions } from "./components/transactions";
+import Transactions  from "./components/transactions";
 import { formatDateQuery, handleDownload } from "@/utils/utils";
 
 export const metadata: Metadata = {

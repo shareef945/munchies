@@ -28,10 +28,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { columns } from "./table-columns";
+import  columns  from "./table-columns";
 
 
-export function Transactions({ data }: any) {
+export default function Transactions({ data }: any) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []

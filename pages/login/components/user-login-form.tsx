@@ -11,7 +11,7 @@ import { set } from "date-fns";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
+export default function UserLoginForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

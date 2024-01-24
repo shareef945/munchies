@@ -14,7 +14,7 @@ export type Payment = {
 
 
 
-export const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Payment>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -135,3 +135,5 @@ export const columns: ColumnDef<Payment>[] = [
     },
   },
 ]
+
+export default columns

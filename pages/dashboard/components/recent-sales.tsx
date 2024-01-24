@@ -1,10 +1,10 @@
-import { Sale } from "./sale";
+import Sale from "./sale";
 
 interface RecentSalesProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
 }
 
-export function RecentSales({ data }: RecentSalesProps) {
+export default function RecentSales({ data }: RecentSalesProps) {
   const sortedSales = data.sort((a: any, b: any) => {
     const dateA = new Date(a[" Updated Date"]);
     const dateB = new Date(b[" Updated Date"]);
