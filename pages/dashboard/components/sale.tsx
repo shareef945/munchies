@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDate } from "@/utils/utils";
 
-export function Sale({
+export default function Sale({
   avatarSrc,
   avatarAlt,
   avatarFallback,

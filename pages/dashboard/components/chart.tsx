@@ -6,7 +6,7 @@ interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
 }
 
-export function Chart({ data }: ChartProps) {
+export default function Chart({ data }: ChartProps) {
 
   const data1 = chartData(data ? data : []);
   return (

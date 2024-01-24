@@ -18,7 +18,7 @@ interface CalendarDateRangePickerProps extends React.HTMLAttributes<HTMLDivEleme
   initialDate?: DateRange;
 }
 
-export function CalendarDateRangePicker({
+export default function CalendarDateRangePicker({
   className,
   onDateChange,
 
