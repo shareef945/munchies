@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {  ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -28,8 +28,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import  columns  from "./table-columns";
-
+import columns from "../../../components/table-columns";
 
 export default function Transactions({ data }: any) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -58,6 +57,10 @@ export default function Transactions({ data }: any) {
       rowSelection,
     },
   });
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <div className="w-full">
@@ -137,7 +140,7 @@ export default function Transactions({ data }: any) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columns?.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -149,8 +152,8 @@ export default function Transactions({ data }: any) {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows?.length} of{" "}
+          {table.getFilteredRowModel().rows?.length} row(s) selected.
         </div>
         <div className="space-x-2">
           <Button
