@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { UserLoginForm } from "./components/user-login-form";
+import UserLoginForm  from "./components/user-login-form";
 
 export const metadata: Metadata = {
   title: "Authentication",
