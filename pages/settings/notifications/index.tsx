@@ -1,12 +1,12 @@
 import React from "react";
-import SettingsLayout from "../settings/layout";
 import { Separator } from "@/components/ui/separator";
 import { ProfileForm } from "@/pages/settings/profile-form";
-import { SidebarNav } from "./components/sidebar-nav";
+import { SidebarNav } from "../components/sidebar-nav";
+import { NotificationsForm } from "./notifications-form";
 
 const Settings = () => {
   const sidebarNavItems = [
-    { 
+    {
       title: "Profile",
       href: "/settings/",
     },
@@ -26,7 +26,7 @@ const Settings = () => {
       title: "Display",
       href: "/settings/display",
     },
-  ]
+  ];
   return (
     <>
       <div className="hidden space-y-6 p-10 pb-16 md:block">
@@ -44,14 +44,14 @@ const Settings = () => {
           <div className="flex-1 lg:max-w-2xl">
             {" "}
             <div className="space-y-6">
-            <div>
-        <h3 className="text-lg font-medium">Profile</h3>
-        <p className="text-sm text-muted-foreground">
-          This is how others will see you on the site.
-        </p>
-      </div>
+              <div>
+                <h3 className="text-lg font-medium">Notifications</h3>
+                <p className="text-sm text-muted-foreground">
+                  Configure how you receive notifications.
+                </p>
+              </div>
               <Separator />
-              <ProfileForm />
+              <NotificationsForm />
             </div>
           </div>
         </div>
