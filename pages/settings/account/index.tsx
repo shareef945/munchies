@@ -2,8 +2,8 @@ import React from "react";
 // import SettingsLayout from "../settings/layout";
 import { Separator } from "@/components/ui/separator";
 // import { ProfileForm } from "@/pages/settings/profile-form";
-import { SidebarNav } from "../components/sidebar-nav";
-import { AccountForm } from "./account-form";
+import  SidebarNav  from "../components/sidebar-nav";
+import  AccountForm  from "./account-form";
 
 const Settings = () => {
   const sidebarNavItems = [
