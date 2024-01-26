@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,11 +9,8 @@ import { useEffect, useState } from "react";
 import supabase from "@/utils/supabase";
 import Transactions  from "./components/transactions";
 import { formatDateQuery, handleDownload } from "@/utils/utils";
+import Navbar from "@/components/shared/navbar";
 
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Example dashboard app built using the components.",
-};
 
 export default function DashboardPage() {
   const [date, setDate] = useState<any>("");
@@ -34,6 +30,7 @@ export default function DashboardPage() {
 
   return (
     <>
+    <Navbar />
       <div className="hidden flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
