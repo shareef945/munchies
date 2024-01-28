@@ -14,7 +14,7 @@ export type Payment = {
 
 
 
-const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<any>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -38,63 +38,63 @@ const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: " Updated Date",
-    header: "Updated Date",
+    accessorKey: "Date",
+    header: "Date",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue(" Updated Date")}</div>
+      <div className="capitalize">{row.getValue("Date")}</div>
     ),
   },
   {
-    accessorKey: " Name",
-    id: " Name",
+    accessorKey: "Employee Name",
+    id: "Employee Name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Employee Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div>{row.getValue(" Name")}</div>,
+    cell: ({ row }) => <div>{row.getValue("Employee Name")}</div>,
   },
   {
-    accessorKey: " Category",
+    accessorKey: "Description",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Category
+          Description
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div>{row.getValue(" Category")}</div>,
+    cell: ({ row }) => <div>{row.getValue("Description")}</div>,
   },
   {
-    accessorKey: " Branch Name",
+    accessorKey: "Payment Type",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Branch Name
+          Payment Type
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div>{row.getValue(" Branch Name")}</div>,
+    cell: ({ row }) => <div>{row.getValue("Payment Type")}</div>,
   },
   {
-    accessorKey: " Selling Price",
+    accessorKey: "Amount After Charges",
     header: () => <div className="text-right">Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue(" Selling Price"))
+      const amount = parseFloat(row.getValue("Amount After Charges"))
 
       // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
@@ -119,7 +119,7 @@ const columns: ColumnDef<Payment>[] = [
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="start">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(payment.id)}

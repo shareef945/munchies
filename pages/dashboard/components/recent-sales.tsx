@@ -18,10 +18,10 @@ export default function RecentSales({ data }: RecentSalesProps) {
       {recentSales?.map((sale: any, index: number) => (
         <Sale
           key={index}
-          name={sale[" Name"]}
-          email={sale["Updated By"]}
-          amount={`₵ ${sale[" Selling Price"]}`}
-          date={sale[" Updated Date"]}
+          name={sale["Employee Name"]}
+          email={sale["Payment Type"]}
+          amount={`₵ ${sale["Amount After Charges"]}`}
+          date={sale["Date"]}
         />
       ))}
     </div>

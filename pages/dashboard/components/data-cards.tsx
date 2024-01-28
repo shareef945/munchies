@@ -6,8 +6,9 @@ interface DataCardsProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
 }
 const DataCards = ({ data }: DataCardsProps) => {
-  const total = totalSales(data);
-  const quantity = totalQuantity(data);
+  console.log(data, "data")
+  const total = data?.totalRevenue;
+  const quantity = data?.totalQuantity;
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
