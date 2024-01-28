@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { format, parseISO } from 'date-fns';
 
 
 export type Payment = {
@@ -40,9 +41,12 @@ const columns: ColumnDef<any>[] = [
   {
     accessorKey: "Date",
     header: "Date",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("Date")}</div>
-    ),
+    cell: ({ row }) => {
+      const date = parseISO(row.getValue("Date"));
+      const formattedDate = format(date, 'PPpp');
+  
+      return <div className="capitalize">{formattedDate}</div>
+    },
   },
   {
     accessorKey: "Employee Name",

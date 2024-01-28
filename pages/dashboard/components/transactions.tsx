@@ -71,7 +71,7 @@ export default function Transactions({ data }: any) {
               ""
             }
             onChange={(event) =>
-              table.getColumn(" Name")?.setFilterValue(event.target.value)
+              table.getColumn("Employee Name")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
