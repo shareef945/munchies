@@ -6,20 +6,20 @@ import Chart from "./components/chart";
 import RecentSales from "./components/recent-sales";
 import DataCards from "./components/data-cards";
 import { useEffect, useState } from "react";
-import supabase from "@/utils/supabase";
 import Transactions from "./components/transactions";
 import { formatDateQuery, handleDownload } from "@/utils/utils";
 import Navbar from "@/components/shared/navbar";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { getHubtelData } from "@/functions/dashboard";
 import { format } from "date-fns";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function DashboardPage() {
   const [date, setDate] = useState<any>("");
   const [data, setData] = useState<any>("");
-
-
+  const { toast } = useToast();
 
   const {
     isLoading: isLoading,
@@ -34,11 +34,31 @@ export default function DashboardPage() {
         format(date.to, "yyyy-MM-dd")
       ),
   });
+  useEffect(() => {
+    if (isError) {
+      toast({
+        title: "Error",
+        description: "An error occured",
+      });
+    }
+    if (isLoading) {
+      toast({
+        title: "Loading Data..",
+        description: "Relax your nerves",
+      });
+    }
+    if (hubtelData) {
+      toast({
+        title: "Data Loaded",
+        description: "Data has been loaded successfully",
+      });
+    }
+  }, [isError, isLoading, hubtelData]);
 
-console.log(hubtelData)
   return (
     <>
       <Navbar />
+      <Toaster />
       <div className="hidden flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">

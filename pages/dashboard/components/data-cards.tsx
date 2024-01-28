@@ -6,9 +6,8 @@ interface DataCardsProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
 }
 const DataCards = ({ data }: DataCardsProps) => {
-  console.log(data, "data")
-  const total = data?.totalRevenue;
-  const quantity = data?.totalQuantity;
+  const total = data?.totalRevenue || 0;
+  const quantity = data?.totalQuantity || 0;
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
@@ -28,7 +27,7 @@ const DataCards = ({ data }: DataCardsProps) => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{`₵ ${total}`}</div>
+          <div className="text-2xl font-bold">{`₵ ${total.toLocaleString()}`}</div>
           {/* <p className="text-xs text-muted-foreground">
             +20.1% from last month
           </p> */}
@@ -77,7 +76,7 @@ const DataCards = ({ data }: DataCardsProps) => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{quantity}</div>
+          <div className="text-2xl font-bold">{quantity.toLocaleString()}</div>
           {/* <p className="text-xs text-muted-foreground">+19% from last month</p> */}
         </CardContent>
       </Card>
