@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import Transactions from "./components/transactions";
 import { formatDateQuery, handleDownload } from "@/utils/utils";
 import Navbar from "@/components/shared/navbar";
+import ReportCharts from "./components/reportcharts";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { getHubtelData } from "@/functions/dashboard";
@@ -74,7 +75,7 @@ export default function DashboardPage() {
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="transactions">Transactions</TabsTrigger>
-              <TabsTrigger value="reports" disabled>
+              <TabsTrigger value="reports" >
                 Reports
               </TabsTrigger>
               <TabsTrigger value="notifications" disabled>
@@ -104,6 +105,10 @@ export default function DashboardPage() {
             </TabsContent>
             <TabsContent value="transactions" className="space-y-4">
               <Transactions data={hubtelData ? hubtelData?.data : []} />
+            </TabsContent>
+            <TabsContent value="reports" className="space-y-4">
+              <ReportCharts  />
+              {/* data={data ? data : []} */}
             </TabsContent>
           </Tabs>
         </div>
