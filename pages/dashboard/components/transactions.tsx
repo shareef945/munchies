@@ -33,7 +33,7 @@ import columns from "../../../components/table-columns";
 export default function Transactions({ data }: any) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -59,7 +59,7 @@ export default function Transactions({ data }: any) {
   });
 
   if (!data) {
-    return null;
+    return <div>Loading...</div>;
   } else if (data) {
     return (
       <div className="w-full">
@@ -71,7 +71,9 @@ export default function Transactions({ data }: any) {
               ""
             }
             onChange={(event) =>
-              table.getColumn("Employee Name")?.setFilterValue(event.target.value)
+              table
+                .getColumn("Employee Name")
+                ?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
@@ -114,7 +116,7 @@ export default function Transactions({ data }: any) {
                           ? null
                           : flexRender(
                               header.column.columnDef.header,
-                              header.getContext()
+                              header.getContext(),
                             )}
                       </TableHead>
                     );
@@ -133,7 +135,7 @@ export default function Transactions({ data }: any) {
                       <TableCell key={cell.id}>
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext()
+                          cell.getContext(),
                         )}
                       </TableCell>
                     ))}
@@ -153,7 +155,7 @@ export default function Transactions({ data }: any) {
           </Table>
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
-          <div className="flex-1 text-sm text-muted-foreground">
+          <div className="text-muted-foreground flex-1 text-sm">
             {table.getFilteredSelectedRowModel().rows?.length} of{" "}
             {table.getFilteredRowModel().rows?.length} row(s) selected.
           </div>
