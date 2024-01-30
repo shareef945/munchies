@@ -6,15 +6,15 @@ interface RecentSalesProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function RecentSales({ data }: RecentSalesProps) {
   const sortedSales = data?.sort((a: any, b: any) => {
-    const dateA = new Date(a[" Updated Date"]);
-    const dateB = new Date(b[" Updated Date"]);
+    const dateA = new Date(a["Date"]);
+    const dateB = new Date(b["Date"]);
     return dateB.getTime() - dateA.getTime();
   });
 
-  const recentSales = sortedSales.slice(0, 5);
+  const recentSales = sortedSales?.slice(0, 5);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       {recentSales?.map((sale: any, index: number) => (
         <Sale
           key={index}
