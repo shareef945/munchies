@@ -62,7 +62,7 @@ export default function Transactions({ data }: any) {
     return <div>Loading...</div>;
   } else if (data) {
     return (
-      <div className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 min-[642px]:grid min-[642px]:grid-cols-1 lg:block gap-6">
         <div className="flex items-center py-4">
           <Input
             placeholder="Search Item..."
