@@ -1,46 +1,30 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import createClient from './supabase';
+// import React, { useEffect } from 'react';
+// import { useRouter } from 'next/router';
+// import supabase from './supabase';
+// import { ComponentType } from 'react';
 
-export function withAuth<T extends JSX.IntrinsicAttributes>(
-  WrappedComponent: React.ComponentType<T>
-) {
-  return function WithAuth(props: T) {
-    const router = useRouter();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-      const checkAuth = async () => {
-        try {
-          const session = await createClient.auth.getSession();
+// function withAuth<T>(WrappedComponent: ComponentType<T>) {
+//   const WithAuthComponent = (props: T) => {
+//     const router = useRouter();
+//     const session = supabase.auth.getSession();
 
-          if (session?.user) {
-            setIsAuthenticated(true);
-          } else {
-            router.push('/login'); 
-          }
-        } catch (error) {
-          console.error('Error checking authentication:', error);
-          router.push('/login'); 
-        } finally {
-          setIsLoading(false);
-        }
-      };
+//     useEffect(() => {
+//       if (!session) {
+//         router.push("/login");
+//       }
+//     }, [session]);
 
-      checkAuth();
-    }, []);
+//     if (session) {
+//       return <WrappedComponent {...props} />;
+//     } else {
+//       return null; 
+//     }
+//   };
 
-    if (isLoading) {
-     
-      return <div>Loading...</div>;
-    }
+//   const wrappedComponentName =
+//     WrappedComponent.displayName || WrappedComponent.name || "Component";
+//   WithAuthComponent.displayName = `withAuth(${wrappedComponentName})`;
 
-    if (!isAuthenticated) {
-      
-      return null; 
-    }
-
-    return <WrappedComponent {...props} />;
-  };
-}
+//   return WithAuthComponent;
+// }

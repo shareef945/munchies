@@ -16,8 +16,10 @@ import { getHubtelData } from "@/functions/dashboard";
 import { format } from "date-fns";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
+// import withAuth from "@/utils/auth";
 
-export default function DashboardPage() {
+
+function DashboardPage() {
   const [date, setDate] = useState<any>("");
   const [data, setData] = useState<any>("");
   const { toast } = useToast();
@@ -55,6 +57,7 @@ export default function DashboardPage() {
       });
     }
   }, [isError, isLoading, hubtelData]);
+  
 
   return (
     <>
@@ -115,3 +118,5 @@ export default function DashboardPage() {
     </>
   );
 }
+
+export default DashboardPage;
