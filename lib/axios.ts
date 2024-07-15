@@ -1,5 +1,4 @@
-import { API_BASE_URL, API_PASSWORD } from "@/config/config";
-import {  getToken } from "@/functions/generateToken";
+import { API_BASE_URL, API_BASE_URL_AUTH } from "@/config/config";
 import axios from "axios";
 
 const api = axios.create({
@@ -7,14 +6,15 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
-api.interceptors.request.use(async (config) => {
-  const token = await getToken();
-    config.headers.Authorization = `Bearer ${token}`;
-  return config;
+const authApi = axios.create({
+  baseURL: API_BASE_URL_AUTH,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
 });
 
-export default api;
-
-
+export { authApi, api };

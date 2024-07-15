@@ -2,9 +2,17 @@ import { API_BASE_URL } from "./config";
 
 export const endpoints = {
   backend: {
-    all: "/v1/hubtel",
-  },
-  token: {
-    generate: `${API_BASE_URL}/v1/login`,
+    transactions: {
+      hubtel: {
+        get: "/transactions/hubtel",
+        getOne: (id: string) => `/transactions/hubtel/${id}`,
+      },
+    },
+    reports: {
+      revenue: "/reports/revenue",
+    },
+    auth: {
+      login: "/auth/login",
+    },
   },
 };
