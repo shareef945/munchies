@@ -1,5 +1,6 @@
 import { endpoints } from "@/config/endpoints";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
+import { handleApiError } from "@/utils/utils";
 
 export function totalSales(data: any[]): number {
   return data?.reduce((total: any, item: any) => {
@@ -45,13 +46,11 @@ export async function getHubtelData(from?: string, to?: string) {
     to: to,
   };
   try {
-    const response = await api.get(endpoints.backend.reports.revenue, { params });
+    const response = await api.get(endpoints.backend.reports.revenue, {
+      params,
+    });
     return response.data;
   } catch (error: any) {
-    if (error.response && error.response.data && error.response.data.message) {
-      throw error.response.data.message;
-    } else {
-      throw error;
-    }
+    handleApiError(error);
   }
 }

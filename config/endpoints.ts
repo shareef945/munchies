@@ -1,5 +1,3 @@
-import { API_BASE_URL } from "./config";
-
 export const endpoints = {
   backend: {
     transactions: {

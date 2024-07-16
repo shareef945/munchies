@@ -1,17 +1,15 @@
-import { chartData } from "@/functions/dashboard";
+import { chartData } from "@/pages/api/dashboard";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-
 
 interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
   data: any;
 }
 
 export default function Chart({ data }: ChartProps) {
-
   const data1 = chartData(data ? data : []);
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data1} >
+      <BarChart data={data1}>
         <XAxis
           dataKey="name"
           stroke="#888888"

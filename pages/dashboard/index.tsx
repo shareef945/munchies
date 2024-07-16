@@ -12,12 +12,10 @@ import Navbar from "@/components/shared/navbar";
 import ReportCharts from "./components/reportcharts";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
-import { getHubtelData } from "@/functions/dashboard";
 import { format } from "date-fns";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
-// import withAuth from "@/utils/auth";
-
+import { getHubtelData } from "../api/dashboard";
 
 function DashboardPage() {
   const [date, setDate] = useState<any>("");
@@ -57,12 +55,11 @@ function DashboardPage() {
       });
     }
   }, [isError, isLoading, hubtelData]);
-  
+
 
   return (
     <>
       <Navbar />
-      <Toaster />
       <div className="flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 sm:space-x-2">
