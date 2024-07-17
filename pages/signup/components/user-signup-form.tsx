@@ -4,7 +4,6 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -16,7 +15,6 @@ export default function UserSignupForm({ className, ...props }: UserAuthFormProp
   const [lastName, setLastName] = React.useState("");
   const [msisdn, setMsisdn] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  // const supabase = createClientComponentClient();
 
   async function onSubmit(event: React.SyntheticEvent) {
     if (password !== confirmPassword) {
@@ -30,10 +28,7 @@ export default function UserSignupForm({ className, ...props }: UserAuthFormProp
         setIsLoading(false);
       }, 3000);
 
-      // let { data, error } = await supabase.auth.signUp({
-      //   email: email,
-      //   password: password,
-      // });
+   
     }
   }
 

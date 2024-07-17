@@ -10,15 +10,12 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from 'next/router';
 
 export function UserNav() {
-  const supabase = createClientComponentClient();
   const router = useRouter();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
     router.push("/login")
 
   };
