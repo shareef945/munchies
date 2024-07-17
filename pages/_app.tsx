@@ -1,20 +1,17 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-const queryClient = new QueryClient();
-
 import "@/styles/globals.css";
-
-// @ts-ignore
 import type { AppProps } from "next/app";
+import { Toaster } from "@/components/ui/toaster";
 
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+        <Toaster />
+        <Component {...pageProps} />
       </QueryClientProvider>
-
     </>
   );
 }
-

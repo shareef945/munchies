@@ -2,22 +2,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CalendarDateRangePicker from "./components/date-range-picker";
-import Chart from "./components/chart";
 import RecentSales from "./components/recent-sales";
 import DataCards from "./components/data-cards";
 import { useEffect, useState } from "react";
 import Transactions from "./components/transactions";
-import { formatDateQuery, handleDownload } from "@/utils/utils";
+import { handleDownload } from "@/utils/utils";
 import Navbar from "@/components/shared/navbar";
 import ReportCharts from "./components/reportcharts";
 import { useQuery } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
-import { getHubtelData } from "@/functions/dashboard";
 import { format } from "date-fns";
-import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
-// import withAuth from "@/utils/auth";
-
+import { getHubtelData, getHubtelTransactions } from "../api/dashboard";
+import OverviewChart from "./components/chart";
 
 function DashboardPage() {
   const [date, setDate] = useState<any>("");
@@ -37,6 +33,21 @@ function DashboardPage() {
         format(date.to, "yyyy-MM-dd")
       ),
   });
+
+  const {
+    isLoading: isLoadingTx,
+    error: errorTx,
+    data: transactions,
+    isError: isErrorTx,
+  } = useQuery({
+    queryKey: ["transactions", date],
+    queryFn: () =>
+      getHubtelTransactions(
+        format(date.from, "yyyy-MM-dd"),
+        format(date.to, "yyyy-MM-dd")
+      ),
+  });
+
   useEffect(() => {
     if (isError) {
       toast({
@@ -57,12 +68,10 @@ function DashboardPage() {
       });
     }
   }, [isError, isLoading, hubtelData]);
-  
 
   return (
     <>
       <Navbar />
-      <Toaster />
       <div className="flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 sm:space-x-2">
@@ -84,14 +93,14 @@ function DashboardPage() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
-              <DataCards data={hubtelData ? hubtelData : []} />
+              <DataCards data={hubtelData} />
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4 w-full">
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <Chart data={hubtelData?.transactions} />
+                    <OverviewChart data={hubtelData?.monthlyRevenueChart} />
                   </CardContent>
                 </Card>
                 <Card className="col-span-4 md:col-span-3 w-full">
@@ -100,17 +109,19 @@ function DashboardPage() {
                   </CardHeader>
                   <CardContent>
                     <RecentSales
-                      data={hubtelData ? hubtelData?.transactions : []}
+                      data={hubtelData?.recentTransactions?.results}
                     />
                   </CardContent>
                 </Card>
               </div>
             </TabsContent>
             <TabsContent value="transactions" className="space-y-4">
-              <Transactions data={hubtelData ? hubtelData?.transactions : []} />
+              <Transactions
+                data={transactions?.results ? transactions?.results : []}
+              />
             </TabsContent>
             <TabsContent value="reports" className="space-y-4">
-              <ReportCharts data={hubtelData} />
+              <ReportCharts analyticsData={hubtelData} />
             </TabsContent>
           </Tabs>
         </div>

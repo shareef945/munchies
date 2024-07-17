@@ -1,20 +1,21 @@
-import { API_BASE_URL, API_PASSWORD } from "@/config/config";
-import {  getToken } from "@/functions/generateToken";
 import axios from "axios";
+import { ANALYTICS_BASE_URL, AUTH_BASE_URL } from "@/config/config";
 
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const createApi = (baseURL: string | undefined) => {
+  if (!baseURL) {
+    throw new Error(
+      `Base URL is not defined. Please check your environment variables.`
+    );
+  }
 
-api.interceptors.request.use(async (config) => {
-  const token = await getToken();
-    config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+  return axios.create({
+    baseURL,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+};
 
-export default api;
-
-
+export const authApi = createApi(AUTH_BASE_URL);
+export const analyticsApi = createApi(ANALYTICS_BASE_URL);

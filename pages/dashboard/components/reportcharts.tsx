@@ -4,10 +4,10 @@ import StackedBarChart from "./chartcomponents/stacked-barchart";
 import TrendAnalysis from "./chartcomponents/trend-analysis-chart";
 import React from "react";
 
-export default function ReportCharts(data: any) {
-  const stackedBarChartData = data ? data?.data?.monthlyRevenueChart : [];
-  const pieChartData = data ? data?.data?.pieChart : [];
-  const momoTrendsChart = data ? data?.data?.monthlyRevenueChart : [];
+export default function ReportCharts(analyticsData: any) {
+  const stackedBarChartData = analyticsData?.analyticsData?.monthlyRevenueChart;
+  const pieChartData = analyticsData?.analyticsData?.pieChart;
+  const momoTrendsChart = analyticsData?.analyticsData?.monthlyRevenueChart;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

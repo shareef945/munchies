@@ -6,67 +6,91 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { set } from "date-fns";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/pages/api/auth";
+import { toast } from "react-hot-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export default function UserLoginForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+export default function UserLoginForm({
+  className,
+  ...props
+}: UserAuthFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [view, setView] = useState("sign-in");
   const router = useRouter();
-  const supabase = createClientComponentClient();
+  const { toast } = useToast();
 
-  const handleSignIn = async () => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      alert(error.message);
-      return;
-    } else {
+  const mutation = useMutation({
+    mutationFn: ({ email, password }: { email: string; password: string }) =>
+      login(email, password),
+    onSuccess: () => {
+      toast({
+        title: "Logged in successfully!",
+        description: "Welcome home baby boys n gurls",
+      });
       router.push("/dashboard");
-    }
+    },
+    onError: (error) => {
+      toast({
+        title: String(error),
+        variant: "destructive",
+        description: "What a shame",
+      });
+    },
+  });
+
+  const handleSubmission = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Logging in chicos, hang tight",
+    });
+    mutation.mutate({ email, password });
   };
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      {/* <form action="/login" method="post"> */}
-      <div className="grid gap-2">
+      <form onSubmit={handleSubmission}>
         <div className="grid gap-2">
-          <Label className="sr-only" htmlFor="email">
-            Email
-          </Label>
-          <Input
-            id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            type="email"
-            autoCapitalize="none"
-            autoComplete="email"
-            autoCorrect="off"
-            disabled={isLoading}
-          />
-          <Input
-            id="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            autoCapitalize="none"
-            autoComplete="email"
-            autoCorrect="off"
-            disabled={isLoading}
-          />
+          <div className="grid gap-2">
+            <Label className="sr-only" htmlFor="email">
+              Email
+            </Label>
+            <Input
+              id="email"
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              type="email"
+              autoCapitalize="none"
+              autoComplete="email"
+              autoCorrect="off"
+              // disabled={mutation.isLoading}
+              required
+            />
+            <Input
+              id="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              autoCapitalize="none"
+              autoComplete="current-password"
+              autoCorrect="off"
+              // disabled={mutation.isLoading}
+              required
+            />
+          </div>
+          <Button type="submit">
+            {/* {mutation.isLoading && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )} */}
+            Sign In
+          </Button>
         </div>
-        <Button disabled={isLoading} onClick={handleSignIn}>
-          {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-          Sign In
-        </Button>
-      </div>
-      {/* </form> */}
+      </form>
+      {mutation.isError && (
+        <div className="text-red-500 text-sm">{String(mutation.error)}</div>
+      )}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />

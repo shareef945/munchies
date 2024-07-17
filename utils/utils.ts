@@ -52,3 +52,11 @@ export const handleDownload = (data: any) => {
 
   document.body.removeChild(link);
 };
+
+export function handleApiError(error: any) {
+  if (error.response && error.response.data && error.response.data.message) {
+    throw error.response.data.message;
+  } else {
+    throw error;
+  }
+}

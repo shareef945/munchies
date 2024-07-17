@@ -12,7 +12,7 @@ function StackedBarChart(data: any) {
         stack={true}
         data={data ? data.data : []}
         index="month"
-        categories={["Mobile Money", "Cash", "Card" ]}
+        categories={["mobilemoney", "cash", "card"]}
         colors={["blue", "teal", "amber", "rose", "indigo", "emerald"]}
         valueFormatter={valueFormatter}
         yAxisWidth={48}
