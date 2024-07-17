@@ -10,7 +10,7 @@ export default function TrendAnalysis(data: any) {
         className="h-72 mt-4"
         data={data ? data.data : []}
         index="date"
-        categories={["Mobile Money", "Cash"]}
+        categories={["mobilemoney", "cash"]}
         colors={["neutral", "indigo"]}
         yAxisWidth={48}
         connectNulls={true}

@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { totalQuantity, totalSales } from "@/functions/dashboard";
 import React from "react";
 
 interface DataCardsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -7,7 +6,7 @@ interface DataCardsProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 const DataCards = ({ data }: DataCardsProps) => {
   const total = data?.totalRevenue || 0;
-  const quantity = data?.totalQuantity || 0;
+  const quantity = data?.recentTransactions?.paginationInfo?.total || 0;
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>

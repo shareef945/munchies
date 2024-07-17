@@ -1,6 +1,6 @@
 //ENVIRONMENT VARIABLES
 export const API_PASSWORD = process.env.NEXT_PUBLIC_API_PASSWORD;
 export const API_SECRET = process.env.NEXT_PUBLIC_API_SECRET;
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-export const API_BASE_URL_AUTH = process.env.NEXT_PUBLIC_API_BASE_URL_AUTH;
 
+export const ANALYTICS_BASE_URL = process.env.NEXT_PUBLIC_ANALYTICS_BASE_URL
+export const AUTH_BASE_URL = process.env.NEXT_PUBLIC_AUTH_BASE_URL;
