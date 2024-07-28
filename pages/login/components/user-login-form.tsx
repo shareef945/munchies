@@ -25,7 +25,8 @@ export default function UserLoginForm({
   const mutation = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       login(email, password),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      localStorage.setItem("authToken", data.token);
       toast({
         title: "Logged in successfully!",
         description: "Welcome home baby boys n gurls",
